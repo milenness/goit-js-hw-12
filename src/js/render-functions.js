@@ -46,14 +46,15 @@ export function clearGallery() {
 }
 
 export function showLoader() {
-  const form = document.querySelector('.form');
-
-  const loader = document.createElement('span');
-  loader.classList.add('loader');
-  form.after(loader);
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    loader.classList.remove('is-hidden');
+  }
 }
 
 export function hideLoader() {
   const loader = document.querySelector('.loader');
-  if (loader) loader.remove();
+  if (loader) {
+    loader.classList.add('is-hidden');
+  }
 }

@@ -3,9 +3,14 @@
   height: 48px;
   border: 5px solid #4e75ff;
   border-bottom-color: transparent;
+  display: block;
   border-radius: 50%;
   margin: 24px auto;
   animation: rotation 1s linear infinite;
+}
+
+.is-hidden {
+  display: none !important;
 }
 
 @keyframes rotation {
