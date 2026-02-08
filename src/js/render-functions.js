@@ -6,40 +6,54 @@ let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-function imageTemplate(img) {
-  return `
+export function createGallery(images) {
+  const gallery = document.querySelector('.gallery');
+  const markup = images
+    .map(
+      img => `
     <li class="gallery-item">
       <a class="gallery-link" href="${img.largeImageURL}">
         <img class="gallery-image" src="${img.webformatURL}" alt="${img.tags}" />
       </a>
-      <div class="info">
-        <p><b>Likes:</b> ${img.likes}</p>
-        <p><b>Views:</b> ${img.views}</p>
-        <p><b>Comments:</b> ${img.comments}</p>
-        <p><b>Downloads:</b> ${img.downloads}</p>
-      </div>
-    </li>`;
+      <ul class="info">
+        <li class="info-item">
+          <span class="info-label">Likes</span>
+          <span class="info-value">${img.likes}</span>
+        </li>
+        <li class="info-item">
+          <span class="info-label">Views</span>
+          <span class="info-value">${img.views}</span>
+        </li>
+        <li class="info-item">
+          <span class="info-label">Comments</span>
+          <span class="info-value">${img.comments}</span>
+        </li>
+        <li class="info-item">
+          <span class="info-label">Downloads</span>
+          <span class="info-value">${img.downloads}</span>
+        </li>
+      </ul>
+    </li>`
+    )
+    .join('');
+
+  gallery.innerHTML = markup;
+  lightbox.refresh();
 }
 
-export function createGallery(images) {
-  const gallery = document.querySelector('.gallery');
-  const markup = images.map(imageTemplate).join('');
-  gallery.innerHTML = markup;
-
-  lightbox.refresh();
+export function clearGallery() {
+  document.querySelector('.gallery').innerHTML = '';
 }
 
 export function showLoader() {
   const form = document.querySelector('.form');
-  const loaderHtml = '<span class="loader"></span>';
-  form.insertAdjacentHTML('afterend', loaderHtml);
+
+  const loader = document.createElement('span');
+  loader.classList.add('loader');
+  form.after(loader);
 }
 
 export function hideLoader() {
   const loader = document.querySelector('.loader');
   if (loader) loader.remove();
-}
-
-export function clearGallery() {
-  document.querySelector('.gallery').innerHTML = '';
 }
