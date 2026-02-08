@@ -38,7 +38,16 @@ form.addEventListener('submit', event => {
         createGallery(data.hits);
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      iziToast.error({
+        title: 'Error',
+        message: 'Something went wrong. Please try again later!',
+        position: 'topRight',
+        backgroundColor: '#EF4040',
+        messageColor: '#FFFFFF',
+      });
+      console.log(err);
+    })
     .finally(() => {
       hideLoader();
       event.target.reset();
