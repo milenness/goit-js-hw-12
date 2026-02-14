@@ -19,7 +19,6 @@ export const getImagesByQuery = async (query, page) => {
 
     return response.data;
   } catch (error) {
-    // Якщо сталася помилка запиту, "прокидаємо" її далі, щоб main.js міг її зловити через catch
     console.error("Error fetching images:", error);
     throw error; 
   }

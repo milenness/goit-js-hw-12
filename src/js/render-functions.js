@@ -1,7 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-// Ініціалізація SimpleLightbox
 let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
@@ -28,7 +27,6 @@ export function createGallery(images) {
   lightbox.refresh();
 }
 
-// Функції для лоадера (саме їх не вистачало!)
 export function showLoader() {
   const loader = document.querySelector('.loader');
   if (loader) loader.classList.remove('is-hidden');
@@ -39,7 +37,7 @@ export function hideLoader() {
   if (loader) loader.classList.add('is-hidden');
 }
 
-// Функції для кнопки Load More
+
 export function showLoadMoreButton() {
   const button = document.querySelector('.load-more');
   if (button) button.classList.remove('is-hidden');
