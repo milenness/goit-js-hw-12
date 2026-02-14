@@ -9,52 +9,33 @@ let lightbox = new SimpleLightbox('.gallery a', {
 export function createGallery(images) {
   const gallery = document.querySelector('.gallery');
   const markup = images
-    .map(
-      img => `
-    <li class="gallery-item">
-      <a class="gallery-link" href="${img.largeImageURL}">
-        <img class="gallery-image" src="${img.webformatURL}" alt="${img.tags}" />
-      </a>
-      <ul class="info">
-        <li class="info-item">
-          <span class="info-label">Likes</span>
-          <span class="info-value">${img.likes}</span>
-        </li>
-        <li class="info-item">
-          <span class="info-label">Views</span>
-          <span class="info-value">${img.views}</span>
-        </li>
-        <li class="info-item">
-          <span class="info-label">Comments</span>
-          <span class="info-value">${img.comments}</span>
-        </li>
-        <li class="info-item">
-          <span class="info-label">Downloads</span>
-          <span class="info-value">${img.downloads}</span>
-        </li>
-      </ul>
-    </li>`
-    )
+    .map(img => `
+      <li class="gallery-item">
+        <a class="gallery-link" href="${img.largeImageURL}">
+          <img class="gallery-image" src="${img.webformatURL}" alt="${img.tags}" />
+        </a>
+        <div class="info">
+          <p><b>Likes:</b> ${img.likes}</p>
+          <p><b>Views:</b> ${img.views}</p>
+          <p><b>Comments:</b> ${img.comments}</p>
+          <p><b>Downloads:</b> ${img.downloads}</p>
+        </div>
+      </li>`)
     .join('');
 
-  gallery.innerHTML = markup;
+  gallery.insertAdjacentHTML('beforeend', markup);
+  
   lightbox.refresh();
+}
+
+export function showLoadMoreButton() {
+  document.querySelector('.load-more').classList.remove('is-hidden');
+}
+
+export function hideLoadMoreButton() {
+  document.querySelector('.load-more').classList.add('is-hidden');
 }
 
 export function clearGallery() {
   document.querySelector('.gallery').innerHTML = '';
-}
-
-export function showLoader() {
-  const loader = document.querySelector('.loader');
-  if (loader) {
-    loader.classList.remove('is-hidden');
-  }
-}
-
-export function hideLoader() {
-  const loader = document.querySelector('.loader');
-  if (loader) {
-    loader.classList.add('is-hidden');
-  }
 }
