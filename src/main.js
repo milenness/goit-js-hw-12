@@ -37,6 +37,7 @@ form.addEventListener('submit', async event => {
 
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
+  hideLoadMoreButton();
   await handleFetch();
 });
 
@@ -57,25 +58,26 @@ async function handleFetch() {
 
     createGallery(data.hits);
 
-    if (page * 15 < data.totalHits) {
-  showLoadMoreButton();
-} else {
-  hideLoadMoreButton();
-  if (page > 1) {
-    iziToast.info({
-      message: "We're sorry, but you've reached the end of search results.",
-      position: 'topRight'
-    });
-  }
-}
+    if (page * 15 < totalHits) {
+      showLoadMoreButton();
+    } else {
+      hideLoadMoreButton();
+      
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight'
+      });
+    }
 
     if (page > 1) {
       const card = document.querySelector('.gallery-item');
-      const cardHeight = card.getBoundingClientRect().height;
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
+      if (card) {
+        const cardHeight = card.getBoundingClientRect().height;
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
+      }
     }
 
   } catch (error) {
